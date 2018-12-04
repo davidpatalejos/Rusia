@@ -1,0 +1,56 @@
+<odoo>
+
+	 <record model="ir.module.category" id="module_category_rusia">
+            <field name="name">Guiarusia</field>
+            <field name="description">Helps you manage site.</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="group_check_root" model="res.groups">
+            <field name="name">Root</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+        <record id="group_check_chofer" model="res.groups">
+            <field name="name">Chofer</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+        <record id="group_check_admin_traslados" model="res.groups">
+            <field name="name">Admin Traslados</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+        <record id="group_check_admin_general" model="res.groups">
+            <field name="name">Admin General</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+        <record id="group_check_representante" model="res.groups">
+            <field name="name">Representante</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+
+        <record id="group_check_guia" model="res.groups">
+            <field name="name">Guía</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>  
+
+
+        <record id="group_check_Cliente" model="res.groups">
+            <field name="name">Cliente</field>
+            <field name="category_id" ref="rusia.module_category_rusia"/>
+            <!-- <field name="users" eval="[(4, ref('base.user_root'))]"/> -->
+        </record>  
+
+        
+
+
+</odoo>

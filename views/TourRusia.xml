@@ -1,0 +1,1379 @@
+<odoo>
+	<data>
+
+	<!-- EVENTOS FORM VIEW { DEFNICION DE ITINEARIOS Y COSTOS}-->
+
+	<record model="ir.ui.view" id="prueba_hijo">
+		<field name="name">prueba.hijo</field>
+		<field name="model">rusia.eventos</field>
+		<field name="arch" type="xml">
+			<form>
+				<field name="name" />
+			</form>
+		</field>
+	</record>
+
+
+
+	<record model="ir.ui.view" id="eventos_padre_form_view">
+		<field name="name">eventos.form</field>
+		<field name="model">rusia.eventos</field>
+		<field name="arch" type="xml">
+			<form  >
+				<group colspan="4" >
+					<!-- 	<sheet> -->
+					<group  col="2"  >
+						<!-- <button name="get_documentos" type="object" string="Obtener documentos" /> -->
+						<separator string="Resumen itinerario" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+						<field name="name" string="Número de Reserva" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+						<!-- <field name="chofer_id" /> -->
+						<field name="representante_id" domain="[('is_rep','=',True)]" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+						<field name="is_padre" invisible="1"/>
+
+						<!-- <field name="Servicio_Gastos" string="Servicio (gastos)"/> -->
+						<!-- <field name="pasajeros_id" /> -->
+						<!-- <field name="Servicio_Gastos" string="Servicio (gastos)"/> -->
+
+						<field name="Datos_Cliente_id" domain="[('is_client','=',True)]" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+						<field name="gastos_reps_ids" groups="rusia.group_check_root">
+							<tree>
+								<field name="name" />
+								<field name="fecha" />
+								<field name="monto" />
+								<field name="usuario_id"/>
+							</tree>
+							<form>
+								<group>
+									<field name="usuario_id" domain="[('is_rep','=',True)]"/>
+									<field name="name" />
+									<field name="fecha" />
+									<field name="monto" />
+								</group>
+							</form>
+						</field>
+
+
+					</group>
+
+					<group  col="2"   >
+						<separator string="Descripción itinerario" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+						<field name="evento_ids" context="{'form_view_ref': 'rusia.eventos_hijo_form_view','default_name' : name}" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados">
+							<tree>
+								<field name="name" string="Nombre del evento" />
+								<field name="Fecha_Inicio" string="Fecha de inicio" />
+								<field name="ciudad_id" />
+								<!-- <field name="Fecha_Fin" string="Fecha de fin" /> -->
+							</tree>
+						</field>
+
+					</group>
+ 							<!-- <group  col="2"  >
+ 								<separator string="Gastos del Tour" colspan="2"  />
+ 								<field name="gastostour_ids" />
+ 							</group> -->
+ 							<group col="2" groups="rusia.group_check_guia,rusia.group_check_root,rusia.group_check_representante,rusia.group_check_admin_traslados" >
+
+ 								<separator string="Documentos Internos" colspan="2" groups="rusia.group_check_root" />
+ 								<field name="documentos_ids" groups="rusia.group_check_root">
+
+ 									<tree>
+ 										<field name="name" />
+ 										<field name="db_datas" string="Descargar" />
+
+ 										
+ 									</tree>
+ 								</field>
+ 								<separator string="Documentos de Cliente" colspan="2"  groups="rusia.group_check_root,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<field name="documentos_clientes_ids" groups="rusia.group_check_guia,rusia.group_check_root,rusia.group_check_representante,rusia.group_check_admin_traslados">
+ 									<tree>
+ 										<field name="name" />
+ 										<field name="db_datas" string="Descargar" />
+
+ 										
+ 									</tree>
+ 								</field>
+ 							</group>
+
+ 							<group col="4" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados">
+ 							
+ 								<separator string="Costos de itinerario General" colspan="4" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+ 								<separator string="Montos Positivos" colspan="4" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+
+ 								
+ 								<field name="Total_Pago_Clientes" string="Total pago clientes" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+ 								<field name="Total_Euros" string="Total EUR" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+								<field name="Total_Rub" string="Total RUB" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Total_Usd" string="Total USD" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Total_Tarjeta" string="Total Tarjeta" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Total_Paypal" string="Total PayPal" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Total_Pagado_Web" string="Total pagado en web" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+ 								<field name="tarjeta_usd_pos" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="tarjeta_eur_pos" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+ 								<field name="Total_Beneficios" string="Total Beneficios" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+ 								
+ 							
+ 							
+ 								<separator string="Montos Negativos" colspan="4"  groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<field name="gasto_rub" groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+								<field name="gasto_usd"  groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="gasto_eur"  groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="tarjeta_usd"  groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="tarjeta_rub" groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="tarjeta_eur" groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="gasto_paypal" groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados"/>
+								<field name="Total_Representante" string="Total representante" groups="rusia.group_check_root,rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<!-- <field name="Total_Gastos" string="Gastos Rublos Efectivo"  /> -->
+ 								<!-- <field name="tarjeta_usd" string="Gastos Tarjetas USD" />
+								<field name="tarjeta_rub" string="Gastos Tarjetas RUB" />
+								<field name="tarjeta_eur" string="Gastos Tarjetas EUR" /> -->
+								<!-- <field name="Total_Representante" string="Pago Representante"  /> -->
+ 							
+ 							</group>
+
+ 							<group col="2" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root">
+ 								<separator string="Costos de itinerario por ciudad" colspan="2" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root"  />
+ 								<field name="gastos_ids" groups="rusia.group_check_root,rusia.group_check_representante,rusia.group_check_guia">
+ 									<tree>
+ 										<field name="name" />
+										<field name="evento_id" />
+										<field name="dia" />
+ 									</tree>
+ 									<form>
+ 										<group col="4">
+ 								
+ 								<separator string="Costos de itinerario General" colspan="4" groups="rusia.group_check_root,rusia.group_check_Cliente"  />
+ 								<!-- <field name="concepto_id" /> -->
+ 								<!-- <field name="concepto_id" /> -->
+ 								<field name="concepto_id" domain="[('name','=','Ganancia')]" invisible="1"/>
+
+ 								<separator string="Montos Positivos" colspan="4" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+
+ 								<field name="Total_Pago_Clientes" string="Total pago clientes" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+ 								<field name="Total_Euros" string="Total EUR" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+								<field name="Total_Rub" string="Total RUB"  groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+ 								<field name="Total_Usd" string="Total USD" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+ 								<field name="Total_Tarjeta" string="Total Tarjeta" groups="rusia.group_check_root,rusia.group_check_Cliente"  />
+ 								<field name="Total_Paypal" string="Total PayPal"  groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+ 								<field name="Total_Pagado_Web" string="Total pagado en web" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+ 								<field name="tarjeta_usd_pos" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+ 								<field name="tarjeta_eur_pos" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+ 								<field name="Total_Beneficios" string="Restante RUB" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+
+ 								
+ 							
+ 							
+ 								<separator string="Montos Negativos" colspan="4" groups="rusia.group_check_root,rusia.group_check_Cliente"  />
+ 								<field name="gasto_rub"  groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+								<field name="gasto_usd" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+								<field name="gasto_eur" groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+								<field name="tarjeta_usd" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+								<field name="tarjeta_rub" groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+								<field name="tarjeta_eur" groups="rusia.group_check_root,rusia.group_check_Cliente" />
+								<field name="gasto_paypal" groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+								<field name="Total_Representante" string="Total representante"  groups="rusia.group_check_root,rusia.group_check_Cliente"/>
+ 								<!-- <field name="Total_Gastos" string="Gastos Rublos Efectivo"  /> -->
+ 								<!-- <field name="tarjeta_usd" string="Gastos Tarjetas USD" />
+								<field name="tarjeta_rub" string="Gastos Tarjetas RUB" />
+								<field name="tarjeta_eur" string="Gastos Tarjetas EUR" /> -->
+								<!-- <field name="Total_Representante" string="Pago Representante"  /> -->
+ 							
+ 							</group>
+							</form>
+ 								</field>
+
+ 								<separator string="Gastos Extras del Tour" colspan="2" groups="rusia.group_check_root"  />
+ 								<field name="gastostoursline_ids" context="{'default_evento_padre' : name}" groups="rusia.group_check_root">
+ 										<form>
+ 											<group>
+ 												<field name="concepto_gasto_id" />
+ 												<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 												<field name="Total" string="Total" />
+ 												<field name="tipo_moneda" />
+ 												<field name="usuario_id" domain="[('is_client','=',False)]" />
+ 												<field name="fecha" />
+ 												<field name="ciudad_id" />
+ 												<field name="observaciones" />
+ 												<field name="evento_padre" invisible="1"/>
+ 												
+ 											</group>
+										</form>
+ 										<tree>
+ 											<field name="ciudad_id" />
+ 											<field name="concepto_gasto_id" />
+ 											<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 											<field name="tipo_moneda" />
+ 											<field name="Total" string="Total" />
+ 											<field name="fecha" />
+ 										</tree>
+ 								</field>
+
+
+
+ 							</group>
+ 							<group col="1"  >
+ 								<separator string="Comentarios itinerario" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_guia,rusia.group_check_admin_traslados"  />
+ 								<field name="Comentarios_Internos" style="height: 50%" string="Comentarios internos" groups="rusia.group_check_representante,rusia.group_check_root,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<field name="Comentarios_Guia"  string="Comentarios guía" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_guia,rusia.group_check_admin_traslados"  />
+ 								<field name="Comentarios_Cliente"  string="Comentarios cliente" groups="rusia.group_check_Cliente,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<field name="Comentarios_Chofer" groups="rusia.group_check_chofer,rusia.group_check_root" />
+ 								
+
+ 								
+ 							</group>
+ 							<!-- </sheet> -->
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+
+ 			<!-- EVENTOS FORM VIEW 2 same loop { DEFNICION DE ITINEARIOS Y COSTOS}-->
+
+ 			<record model="ir.ui.view" id="eventos_hijo_form_view">
+ 				<field name="name">eventos.form.hijo</field>
+ 				<field name="model">rusia.eventos</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 						<group colspan="4" >
+ 							<!-- 	<sheet> -->
+ 							<group  col="2"  >
+ 								<separator string="Resumen itinerario" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="evento_id" string="Evento Padre"/>
+ 								<field name="name" invisible="1" string="Reserva Padre"/>
+ 								<field name="is_padre" invisible="1"/>
+ 								<field name="servicio_id" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="Transporte" string="Transporte" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="Fecha_Inicio" string="Fecha" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<!-- <field name="Fecha_Fin" string="Fecha de fin" /> -->
+
+ 								<field name="hora_inicio" string="Hora Inicio" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="hora_final" string="Hora Final" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="guia_id" domain="[('is_guia','=',True)]" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="chofer_id" domain="[('is_chofer','=',True)]" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="hotel_id" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />	
+ 								<field name="numero_pax" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>	
+ 								<field name="ciudad_id" required="1" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="Servicio_Gastos" string="Servicio (gastos)" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="gasto_rub" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+								<field name="gasto_usd" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+								<field name="gasto_eur" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+								<field name="tarjeta_usd" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+								<field name="tarjeta_rub" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+								<field name="tarjeta_eur" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+								<field name="gasto_paypal" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+								<field name="Total_Representante" string="Total representante" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+
+ 							</group>
+
+ 							<group  col="2"   >
+ 								<field name="message" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 								<field name="is_traslado"/>
+ 								
+ 								
+ 								
+ 							</group>
+
+<!--  							<group  col="2"  groups="rusia.group_check_root">
+ 								<separator string="Gastos del Tour" colspan="2"  />
+ 								<field name="gastostoursline_ids" context="{'default_evento_padre' : name,'default_fecha' : Fecha_Inicio,'default_ciudad_id' : ciudad_id}">
+ -->
+ 							<group  col="2"  >
+
+ 								<separator string="Gastos del Tour" colspan="2" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+ 								<field name="gastostoursline_ids" context="{'default_evento_padre' : name,'default_fecha' : Fecha_Inicio,'default_ciudad_id' : ciudad_id}" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados">
+
+
+ 										<form>
+ 											<group>
+ 												<field name="concepto_gasto_id" />
+ 												<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 												<field name="Total" string="Total" />
+ 												<field name="tipo_moneda" />
+ 												<field name="ciudad_id" />
+ 												<field name="usuario_id" domain="[('is_client','=',False)]" />
+ 												<field name="fecha" />
+ 												<field name="observaciones" />
+ 												<field name="evento_padre" invisible="1"/>
+ 											</group>
+										</form>
+ 										<tree>
+ 											<field name="concepto_gasto_id" />
+ 											<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 											<field name="tipo_moneda" />
+ 											<field name="Total" string="Total" />
+ 											<field name="fecha" />
+ 										</tree>
+ 								</field>
+ 							</group>
+ 							<group col="2"  >
+ 								<separator string="Documentos del servicio" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="documentos_ids" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados">
+ 									<tree>
+ 										<field name="name" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 										<field name="db_datas" string="Descargar" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+ 									</tree>
+ 								</field>
+ 							</group>
+ 							
+ 							<group col="1"  >
+ 								<separator string="Comentarios itinerario" colspan="2" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Comentarios_Internos" style="height: 50%" string="Comentarios internos" groups="rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados"  />
+ 								<field name="Comentarios_Guia"  string="Comentarios guía" groups="rusia.group_check_guia,rusia.group_check_admin_traslados" />
+ 								<field name="Comentarios_Cliente"  string="Comentarios cliente" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								<field name="Comentarios_Chofer"  string="Comentarios chofer" groups="rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_root,rusia.group_check_admin_traslados" />
+ 								
+ 							</group>
+ 							<!-- </sheet> -->
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+
+
+
+ 			<!-- Form View Ciudades -->
+
+ 			<record model="ir.ui.view" id="ciudades_form_view">
+ 				<field name="name">ciudades.form</field>
+ 				<field name="model">rusia.ciudades</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Crear itinerario y elegir Costos ">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Ciudades" colspan="2"/>
+ 									<field name="name" string="Nombre de la ciudad" />
+ 									<field name="Image" string="Imagen de la ciudad" />
+ 									<field name="Code" string="Código de la ciudad" />
+ 									<field name="Tel_Emergency" string="Telefono de emergencia" />
+ 								</group>
+ 								<tree>
+ 									<field name="tour_id"/>
+ 								</tree>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+ 			<!-- Form View Tours -->
+
+ 			<record model="ir.ui.view" id="tours_form_view">
+ 				<field name="name">tours.form</field>
+ 				<field name="model">rusia.tours</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Tours ">
+ 						<group colspan="2" >
+ 							<sheet>
+ 								<group col="1" colspan="4" >
+ 									<separator string="Tours" colspan="2"/>
+ 									<field name="name" string="Nombre" />
+ 									<field name="Code" string="Código" />
+ 									<field name="No_show" string="No show" />
+ 									<field name="Pax_minimo" string="Pax Mínimo" />
+ 									<field name="Salario_minimo" string="Salario Mínimo" />
+ 									<field name="ciudad_id" string="Ciudad" />
+ 									<field name="Is_Privado" string="Es privado" />
+ 									<field name="Is_Museo" string="¿Es museo?" />
+ 									<field name="Salario_Extra" string="Salario Extra" />
+ 									<separator string="Costo por personas" />
+ 									<field name="Costo_Pax1" string="1 Pax:" />
+ 									<field name="Costo_Pax2" string="2 Pax:" />
+ 									<field name="Costo_Pax3" string="3 Pax:" />
+ 									<field name="Costo_Pax4" string="4 Pax:" />
+ 									<field name="Costo_Pax5" string="5 Pax:" />
+ 									<field name="Costo_Pax6" string="6 Pax:" />
+ 									<field name="Costo_Pax7" string="7 Pax:" />
+ 									<field name="Costo_Pax8" string="8 Pax:" />
+ 									<field name="Costo_Pax9" string="9 Pax:" />
+ 									<field name="Costo_Pax10" string="+10 Pax:" />
+ 									<separator string="Gasto por personas" />
+ 									<field name="Gasto_Pax1" string="1 Pax:" />
+ 									<field name="Gasto_Pax2" string="2 Pax:" />
+ 									<field name="Gasto_Pax3" string="3 Pax:" />
+ 									<field name="Gasto_Pax4" string="4 Pax:" />
+ 									<field name="Gasto_Pax5" string="5 Pax:" />
+ 									<field name="Gasto_Pax6" string="6 Pax:" />
+ 									<field name="Gasto_Pax7" string="7 Pax:" />
+ 									<field name="Gasto_Pax8" string="8 Pax:" />
+ 									<field name="Gasto_Pax9" string="9 Pax:" />
+ 									<field name="Gasto_Pax10" string="+10 Pax:" />
+ 									<field name="Is_Gratis" string="¿Es Gratis?" />
+ 									<field name="Hora_Inicio" string="Hora de inicio" />
+ 									<field name="Hora_Finalizar" string="Hora de finalización" />
+ 									<field name="Descripcion" string="Descripción" />	
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+
+ 			<!-- Form View Guías -->
+
+
+
+
+ 			<!-- Form View Pasajeros -->
+
+ 			<!-- <record model="ir.ui.view" id="pasajeros_form_view">
+ 				<field name="name">tourspasajeros.form</field>
+ 				<field name="model">rusia.tourspasajeros</field>
+ 				<field name="arch" type="xml">
+ 					<form  >
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Datos de los pasajeros" colspan="2"/>
+ 									<field name="name" string="Nombre del Pasajero" />
+ 									<field name="Email" string="Email del Pasajero" />
+ 									<field name="Telefono" string="Teléfono del Pasajero" />
+ 									<field name="Nombre_Hotel" string="Nombre del hotel del Pasajero" />
+ 									<field name="No_Personas" string="No. Personas" />
+ 									<field name="administrador_id" />
+ 									<field name="Observaciones" string="Observaciones" />
+ 									<field name="pasajeros_ids" />
+
+
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record> -->
+
+
+ 			<!-- Form View Tipo de servicio -->
+
+ 			<record model="ir.ui.view" id="tiposervicio_form_view">
+ 				<field name="name">tiposervicios.form</field>
+ 				<field name="model">rusia.tiposervicios</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Crear tipo de servicio">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Tipo de servicio" colspan="2"/>
+ 									<field name="name" string="Nombre del servicio" />
+ 									<field name="Code" string="Código del servicio" />
+ 									<!-- <field name="Ciudad" string="Ciudad" /> -->
+ 									<field name="Hora_Inicio" string="Hora de inicio" />
+ 									<field name="Hora_Finalizar" string="Hora de finalización" />
+ 									<field name="Descripcion" string="Descripción del servicio" />
+ 									<field name="is_traslado" />
+ 									<field name="ciudad_id" />
+
+
+
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+ 			<!-- Form View Gastos Tours -->
+
+ 			<record model="ir.ui.view" id="gastostours_form_view">
+ 				<field name="name">gastostours.form</field>
+ 				<field name="model">rusia.gastostours</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Gastos Tours">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Tipo de Gastos." colspan="2"/>
+ 									<!-- <field name="tiposervicios_id" /> -->
+ 									<field name="name" context="{'form_view_ref': 'rusia.rusia_gastostours_form_modal'}"/>
+ 									<field name="gastos_tours_line_ids">
+ 										<tree>
+ 											<!-- <field name="evento_padre" /> -->
+ 											<field name="eventos_id" />
+ 											<!-- <field name="Tipo_Pago" /> -->
+											<field name="Total" />
+											<field name="usuario_id" />
+											<field name="fecha" />
+											<field name="observaciones" />
+											<field name="ciudad_id" />
+ 										</tree>
+ 									</field>
+ 									<!-- <field name="tipopago_id" />
+ 									<field name="Dia" string="Día del tour" />
+ 									<field name="Total" string="Total" /> -->
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+ 			<record model="ir.ui.view" id="rusia_gastostours_form_modal">
+			<field name="name">rusia.beneficios.concepto.form.modal</field>
+			<field name="model">rusia.gastostours</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+ 			<!-- Form View tours itinerario -->
+
+ 			<record model="ir.ui.view" id="toursitinerario_form_view">
+ 				<field name="name">toursitinerario.form</field>
+ 				<field name="model">rusia.toursitinerario</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Tours itinerario">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Tours itinerario" colspan="2"/>
+ 									<field name="name" string="No. Tour" />
+ 									<field name="Descripcion_General" string="Descripción General" />
+ 									<field name="toursitinerarioline_ids" />
+
+
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+ 			<!-- Form View tours itinerario line -->
+
+ 			<record model="ir.ui.view" id="toursitinerarioline_form_view">
+ 				<field name="name">toursitinerarioline.form</field>
+ 				<field name="model">rusia.toursitinerarioline</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Tours itinerario line">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Tours itinerario line" colspan="2"/>
+ 									<field name="name" string="Nombre del Punto" />
+
+
+
+
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+ 			<!-- Form View documentos -->
+
+ 			<record model="ir.ui.view" id="documentos_form_view">
+ 				<field name="name">documentos.form</field>
+ 				<field name="model">ir.attachment</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Documentos">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Documentos" colspan="2"/>
+ 									<field name="name" />
+ 									<field name="create_date" string="Fecha de creación"/>
+ 									
+ 									<field name="Tipo_Documento" string="Tipo de documento" />
+ 									<field name="db_datas" string="Subir documento" />
+
+
+
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+ 				<!-- Form View Gastos tours itinerario -->
+
+ 			<record model="ir.ui.view" id="gastostoursline_form_view">
+ 				<field name="name">gastostoursline.form</field>
+ 				<field name="model">rusia.gastostoursline</field>
+ 				<field name="arch" type="xml">
+ 					<form string="Documentos">
+ 						<group colspan="4" >
+ 							<sheet>
+ 								<group col="2" colspan="2" >
+ 									<separator string="Gastos Tours" colspan="2"/>
+ 									<!-- <field name="name" string="Concepto de Gasto" /> -->
+ 									<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 									<field name="tipo_moneda" />
+ 									<field name="Total" string="Total" />
+ 									<field name="usuario_id" />
+ 									<field name="evento_padre"/>
+ 									<field name="fecha" />
+ 									<field name="observaciones" />
+ 									<field name="ciudad_id" />
+
+ 								</group>
+ 							</sheet>
+ 						</group>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+
+
+ 			<!-- Tree Views -->
+
+ 			<!-- Tree View Eventos { DEFNICION DE ITINEARIOS Y COSTOS} -->
+
+ 			<record model="ir.ui.view" id="eventos_tree_view">
+ 				<field name="name">eventos.tree</field>
+ 				<field name="model">rusia.eventos</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+						<field name="name" string="Nombre del evento"/>
+ 						<field name="fecha_padre" />
+ 						<field name="gastos_ids" string="Ciudades"/>
+ 						<field name="evento_ids" string="Numero de eventos hijo"/>
+						<field name="representante_id" />
+ 						<field name="Datos_Cliente_id" />
+
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- <record model="ir.ui.view" id="eventos_tree_view2">
+ 				<field name="name">eventos.tree</field>
+ 				<field name="model">rusia.eventos</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del evento"/>
+ 						<field name="Fecha_Inicio" string="Fecha de inicio"/>
+ 						<field name="Pax_Pago" string="Pax Pago"/>
+
+ 					</tree>
+ 				</field>
+ 			</record> -->
+
+ 			<!-- Tree View Ciudades { Configuración} -->
+
+ 			<record model="ir.ui.view" id="ciudades_tree_view">
+ 				<field name="name">ciudades.tree</field>
+ 				<field name="model">rusia.ciudades</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre de la ciudad" />
+ 						<field name="Tel_Emergency" string="Teléfono de emergencia" />
+ 						<field name="Code" string="Código de la ciudad"/>
+
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View Tours { Configuración} -->
+
+ 			<record model="ir.ui.view" id="tours_tree_view">
+ 				<field name="name">tours.tree</field>
+ 				<field name="model">rusia.tours</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del Tour" />
+ 						<field name="Code" string="Código del Tour " />
+ 						<field name="No_show" string="No. Show"/>
+ 						<field name="ciudad_id" string="Ciudad del tour"/>
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View Guias { Configuración} -->
+
+ 			<record model="ir.ui.view" id="guia_tree_view">
+ 				<field name="name">guia.tree</field>
+ 				<field name="model">res.users</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del Guía" />
+ 						<field name="email" string="Email del Guía" />
+ 						<!-- <field name="tipo_usuario" /> -->
+ 						<field name="groups_id" />
+ 						<!-- <field name="mobile" string="Teléfono del Guía"/> -->
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View Pasajeros { Configuración} -->
+
+ 			<!-- <record model="ir.ui.view" id="pasajeros_tree_view">
+ 				<field name="name">pasajeros.tree</field>
+ 				<field name="model">rusia.tourspasajeros</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del pasajero" />
+ 						<field name="Email" string="E-mail" />
+ 						<field name="Telefono" string="Teléfono"/>
+ 						<field name="Nombre_Hotel" string="Nombre del hotel"/>
+ 						<field name="No_Personas" string="Personas"/>
+ 						<field name="administrador_id" string="Administrador"/>
+ 					</tree>
+ 				</field>
+ 			</record> -->
+
+ 			<!-- Tree View Tipo de servicio { Configuración} -->
+
+ 			<record model="ir.ui.view" id="tiposervicio_tree_view">
+ 				<field name="name">tiposervicio.tree</field>
+ 				<field name="model">rusia.tiposervicios</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="ciudad_id" />
+ 						<field name="name" string="Tipo de servicio" />
+ 						<field name="Code" string="Código del servicio" />
+ 						<field name="Hora_Inicio" string="Hora de inicio" />
+ 						<field name="Hora_Finalizar" string="Hora de finalización" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View  Gastos tours { Configuración} -->
+
+ 			<record model="ir.ui.view" id="gastostours_tree_view">
+ 				<field name="name">gastostours.tree</field>
+ 				<field name="model">rusia.gastostours</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<!-- <field name="tiposervicios_id" /> -->
+ 						<field name="name" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View  Gastos tours line { Configuración} -->
+
+ 			<record model="ir.ui.view" id="gastostoursline_tree_view">
+ 				<field name="name">gastostours.tree</field>
+ 				<field name="model">rusia.gastostoursline</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<!-- <field name="name" string="Nombre del Tour" /> -->
+ 						<field name="concepto_gasto_id" />
+ 						<!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+ 						<field name="Total" string="Total" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View Itinerario tours { Configuración} -->
+
+ 			<record model="ir.ui.view" id="itinerariotours_tree_view">
+ 				<field name="name">itinerariotours.tree</field>
+ 				<field name="model">rusia.toursitinerario</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del Tour" />
+ 						<field name="Descripcion_General" string="Descripción General" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View tour itinerario inline { Configuración} -->
+
+ 			<record model="ir.ui.view" id="itinerariotoursline_tree_view">
+ 				<field name="name">itinerariotourline.tree</field>
+ 				<field name="model">rusia.toursitinerarioline</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" string="Nombre del punto" />
+ 						<field name="itinerario_id" string="Itinerario del tour" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<!-- Tree View documentos { Configuración} -->
+
+ 			<record model="ir.ui.view" id="itinerariotoursline_tree_view">
+ 				<field name="name">documentos.tree</field>
+ 				<field name="model">ir.attachment</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="create_date" string="Fecha de creación"/>
+ 						<field name="name" string="Nombre del documento" />
+ 						<field name="Tipo_Documento" string="Tipo del documento" />
+ 						<field name="db_datas" string="Descargar" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+
+
+
+
+ 			<!-- Calendar View  { DEFINICION DE ITINIERARIO Y COSTOS} -->
+
+ 			<!-- Eventos Calendar View  -->
+
+
+ 			<record model="ir.ui.view" id="eventos_calendar_view">
+ 				<field name="model">rusia.eventos</field>
+ 				<field name="arch" type="xml">
+ 					<calendar date_start="Fecha_Inicio" date_stop="Fecha_Inicio" mode="month" display="[name]">
+ 						<field name="name" />
+ 					</calendar>
+ 				</field>
+ 			</record>
+
+ 			<record model="ir.ui.view" id="view_calendar_tours_guia">
+        		<field name="name">tours.guia.calendar</field>
+        		<field name="model">rusia.eventos</field>
+        		<field eval="2" name="priority"/>
+        		<field name="arch" type="xml">
+            		<calendar color="guia_id" date_start="Fecha_Inicio" date_stop="Fecha_Fin" string="Organización Tours" mode="month" display="[name]">
+                		<!--field name="state_client" invisible="1"/-->
+                		<field name="name"/>
+                		
+            		</calendar>
+        		</field>
+    		</record>
+
+
+
+
+ 			<!-- Actions Make-In -->
+
+ 			<!-- Actions Itinerario (Eventos) -->
+
+
+ 			<record id="action_rusia_eventos" model="ir.actions.act_window">
+ 				<field name="name">Itinerario</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.eventos</field>
+ 				<field name="view_type">form</field>
+ 				<field name="view_mode">calendar,form,tree</field>
+ 				<field name="view_id" eval="False"/>
+ 				<field name="domain">[('is_padre','=', False)]</field>
+ 			</record>
+
+ 			<!-- nuevos para usuarios por calendario -->
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 			</record>
+
+ 			<!-- <record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar_chofer">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 				<field name="domain">[('chofer_id','=', uid)]</field>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar_cliente">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 				<field name="domain">[('Datos_Cliente_id','=', uid)]</field>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar_representante">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 				<field name="domain">[('representante_id','=', uid)]</field>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar_admin_traslados">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 				<field name="domain">[('guia_id','=', uid)]</field>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar_guia">
+ 				<field eval="0" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="eventos_calendar_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 				<field name="domain">[('guia_id','=', uid)]</field>		
+ 			</record>
+ -->
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_form">
+ 				<field eval="1" name="sequence"/>
+ 				<field name="view_mode">form</field>
+ 				<field name="view_id" ref="eventos_hijo_form_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 			</record>
+
+ 			<!-- <record model="ir.actions.act_window.view" id="action_list_menu_11_tree22">
+ 				<field eval="3" name="sequence"/>
+ 				<field name="view_mode">tree</field>
+ 				<field name="view_id" ref="eventos_tree_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 			</record>
+ -->
+ 			<!-- <record model="ir.actions.act_window.view" id="action_rusia_eventos_tree">
+ 				<field eval="3" name="sequence"/>
+ 				<field name="view_mode">tree</field>
+ 				<field name="view_id" ref="eventos_tree_view"/>
+ 				<field name="act_window_id" ref="action_rusia_eventos"/>
+ 			</record> -->
+
+ 			<!-- Itinerario 2 -->
+
+ 		<!-- 	<record id="action_itinerario2" model="ir.actions.act_window">
+ 				<field name="name">Itinerario2</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.eventos</field>
+ 				<field name="view_type">form</field>
+ 				<field name="view_mode">calendar,tree,form</field>
+ 				<field name="domain">[('is_padre','=', False)]</field>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_calendar2">
+ 				<field eval="1" name="sequence"/>
+ 				<field name="view_mode">calendar</field>
+ 				<field name="view_id" ref="view_calendar_tours_guia"/>
+ 				<field name="act_window_id" ref="action_itinerario2"/>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_rusia_eventos_form2">
+ 				<field eval="2" name="sequence"/>
+ 				<field name="view_mode">form</field>
+ 				<field name="view_id" ref="prueba_hijo"/>
+ 				<field name="act_window_id" ref="action_itinerario2"/>
+ 			</record> -->
+
+
+
+
+ 			<!-- Actions Eventos (Eventos) -->
+
+
+ 			<record id="action_list_menu_11_2" model="ir.actions.act_window">
+ 				<field name="name">Eventos</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.eventos</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 				<field name="context">{'default_is_padre': True}</field>
+ 				<!-- <field name="domain">[('is_padre','=', True),('representante_id','=',uid)]</field> -->
+ 				<field name="domain">[('is_padre','=', True)]</field>
+
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_list_menu_11_tree2">
+ 				<field eval="1" name="sequence"/>
+ 				<field name="view_mode">tree</field>
+ 				<field name="view_id" ref="eventos_tree_view"/>
+ 				<field name="act_window_id" ref="action_list_menu_11_2"/>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_list_menu_11_form2">
+ 				<field eval="2" name="sequence"/>
+ 				<field name="view_mode">form</field>
+ 				<field name="view_id" ref="eventos_padre_form_view"/>
+ 				<field name="act_window_id" ref="action_list_menu_11_2"/>
+ 			</record>
+
+
+		
+
+		<!-- Action Ciudades {Configuración} -->
+
+		<record model="ir.actions.act_window" id="rusia.action_list_menu_2">
+			<field name="name">Ciudades</field>
+			<field name="res_model">rusia.ciudades</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- Action Tours {Configuración} -->
+<!-- 
+		<record model="ir.actions.act_window" id="rusia.action_list_menu_3">
+			<field name="name">Tours</field>
+			<field name="res_model">rusia.tours</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+	-->
+	<!-- Action Guia {Configuración} -->
+
+	<record model="ir.actions.act_window" id="rusia.action_list_menu_4">
+		<field name="name">Usuarios</field>
+		<field name="res_model">res.users</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- menu mi perfil -->
+	<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_21">
+		<field name="name">Mi perfil</field>
+		<field name="res_model">res.users</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('representante_id','=', uid)]</field>
+
+	</record> -->
+
+	<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_22">
+		<field name="name">Mi perfil</field>
+		<field name="res_model">res.users</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('Datos_Cliente_id','=', uid)]</field>
+
+	</record> -->
+
+	<record model="ir.actions.act_window" id="rusia.action_list_menu_23">
+		<field name="name">Mi perfil</field>
+		<field name="res_model">res.users</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('id','=', uid)]</field>
+
+	</record>
+
+	<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_24">
+		<field name="name">Mi perfil</field>
+		<field name="res_model">res.users</field>
+		<field name="view_mode">tree,form</field>
+		<field name="domain">[('guia_id','=', uid)]</field>
+
+	</record> -->
+
+	<!-- Action Pasajeros {Configuración} -->
+
+	<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_5">
+		<field name="name">Pasajeros</field>
+		<field name="res_model">rusia.tourspasajeros</field>
+		<field name="view_mode">tree,form</field>
+	</record> -->
+
+	<!-- Action Tipo de servicios {Configuración} -->
+
+	<record model="ir.actions.act_window" id="rusia.action_list_menu_6">
+		<field name="name">Tipo de servicio</field>
+		<field name="res_model">rusia.tiposervicios</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Action Gastos Tours {Configuración} -->
+
+	<record model="ir.actions.act_window" id="rusia.action_list_menu_7">
+		<field name="name">Gastos Tours</field>
+		<field name="res_model">rusia.gastostours</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<!-- Action Tours Itinerario {Configuración} -->
+
+		<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_8">
+			<field name="name">Itinerario de Tours</field>
+			<field name="res_model">rusia.toursitinerario</field>
+			<field name="view_mode">tree,form</field>
+		</record> -->
+
+		<!-- Action Tour Itinerario line {Configuración} -->
+
+		<!-- <record model="ir.actions.act_window" id="rusia.action_list_menu_9">
+			<field name="name">Tours Itinerario Line</field>
+			<field name="res_model">rusia.toursitinerarioline</field>
+			<field name="view_mode">tree,form</field>
+		</record> -->
+
+		<!-- Action Documentos {Configuración} -->
+
+		<record model="ir.actions.act_window" id="rusia.action_list_menu_10">
+			<field name="name">Documentos</field>
+			<field name="res_model">ir.attachment</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('eventos_id','!=', False)]</field>
+		</record>
+
+
+
+		<!-- Gastos Extras -->
+		
+		<record model="ir.ui.view" id="rusia_gastos_extra_tree">
+ 				<field name="name">rusia.gastos.extra.tree</field>
+ 				<field name="model">rusia.gastos.extras</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" />
+ 						<field name="fecha" />
+						<field name="tipo_moneda" />
+						<field name="monto" />
+						<field name="ciudad_id" />
+
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<record model="ir.ui.view" id="rusia_gastos_extra_form">
+ 				<field name="name">rusia.gastos.extra.form</field>
+ 				<field name="model">rusia.gastos.extras</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 						<sheet>
+ 							<group>
+ 								<field name="name" domain="[('name','!=','Ganancia'),('name','!=','Servicios')]"/>
+ 								<field name="fecha" />
+								<field name="tipo_moneda" />
+								<!-- <field name="Tipo_Pago" /> -->
+								<field name="monto" />
+								<field name="observaciones" />
+								<field name="ciudad_id" />
+							</group>
+						</sheet>
+ 					</form>
+ 				</field>
+ 			</record>
+
+ 			<record id="action_gastos_extras" model="ir.actions.act_window">
+ 				<field name="name">Gastos Extras</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.gastos.extras</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 			</record>
+
+
+ 		
+
+ 			
+		
+		<record model="ir.ui.view" id="rusia_beneficios_tree">
+ 				<field name="name">rusia.beneficios.tree</field>
+ 				<field name="model">rusia.beneficios</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" />
+ 						<field name="fecha" />
+						<field name="tipo_moneda" />
+						<field name="monto" />
+						<field name="ciudad_id" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			
+
+ 			<record model="ir.ui.view" id="rusia_beneficios_form">
+ 				<field name="name">rusia.beneficios.form</field>
+ 				<field name="model">rusia.beneficios</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 						<sheet>
+ 							<group>
+								<field name="name" domain="[('name','!=','Ganancia'),('name','!=','Servicios')]"/>
+								<field name="fecha" />
+								<field name="tipo_moneda" />
+								<!-- <field name="Tipo_Pago" /> -->
+								<field name="monto" />
+								<field name="observaciones" />
+								<field name="ciudad_id" />
+							</group>
+						</sheet>
+ 					</form>
+ 				</field>
+ 			</record>
+
+ 			
+
+ 			<record id="action_beneficios" model="ir.actions.act_window">
+ 				<field name="name">Beneficios Extras</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.beneficios</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 			</record>
+
+ 			<!-- Ganancias generales -->
+
+
+ 			<record model="ir.ui.view" id="rusia_ganancias_generales_tree">
+ 				<field name="name">rusia.gananciasgenerales.tree</field>
+ 				<field name="model">rusia.gastos.ciudad</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" />
+ 						<field name="Total_Pago_Clientes" />
+						<field name="Total_Euros" />
+						<field name="Total_Usd" />
+						<field name="Total_Rub" />
+						<field name="Total_Paypal" />
+						<field name="Total_Tarjeta" />
+						<field name="dia" />
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<record model="ir.ui.view" id="rusia_ganancias_generales_form">
+ 				<field name="name">rusia.gananciasgenerales.form</field>
+ 				<field name="model">rusia.gastos.ciudad</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 						<sheet>
+ 							<group col="4">
+ 							
+
+ 								<separator string="Montos Positivos" colspan="4"  />
+
+ 								<field name="Total_Pago_Clientes" string="Total pago clientes"  />
+ 								<field name="Total_Euros" string="Total EUR"  />
+								<field name="Total_Rub" string="Total RUB"  />
+ 								<field name="Total_Usd" string="Total USD"  />
+ 								<field name="Total_Tarjeta" string="Total Tarjeta"  />
+ 								<field name="Total_Paypal" string="Total PayPal"  />
+ 								<field name="Total_Pagado_Web" string="Total pagado en web"  />
+ 								<field name="Total_Beneficios" string="Total Beneficios"  />
+
+ 								
+ 							
+ 							
+ 								<separator string="Montos Negativos" colspan="4"  />
+ 								<!-- <field name="Total_Gastos" string="Gastos Rublos Efectivo"  />
+ 								<field name="tarjeta_usd" string="Gastos Tarjetas USD" />
+								<field name="tarjeta_rub" string="Gastos Tarjetas RUB" />
+								<field name="tarjeta_eur" string="Gastos Tarjetas EUR" />
+								<field name="Total_Representante" string="Pago Representante"  /> -->
+								<field name="gasto_rub" />
+								<field name="gasto_usd" />
+								<field name="gasto_eur" />
+								<field name="tarjeta_usd" />
+								<field name="tarjeta_rub" />
+								<field name="tarjeta_eur" />
+								<field name="gasto_paypal" />
+								<field name="Total_Representante" string="Pago Representante"  />
+
+ 							
+ 							</group>
+						</sheet>
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+
+
+
+ 			<record id="action_list_menu_12" model="ir.actions.act_window">
+ 				<field name="name">Ganacias Generales</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.gastos.ciudad</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 			</record>
+
+
+ 				<!-- General -->
+
+ 			
+ 			<record model="ir.ui.view" id="rusia_general_tree">
+ 				<field name="name">rusia.general.tree</field>
+ 				<field name="model">rusia.general</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						
+ 						<field name="concepto_id" />
+								<field name="fecha" />
+								<field name="ciudad_id" />
+								<field name="rublos" sum="Total" />
+								<field name="euros" sum="Total" />
+								<field name="usd" sum="Total" />
+								<field name="tc_rub" sum="Total" />
+								<field name="tc_eur" sum="Total" />
+								<field name="tc_usd" sum="Total" />
+								<field name="tarjeta_pp" sum="Total" />
+ 						<!-- <field name="Dia" />
+ 						<field name="tour_id" />
+ 						<field name="ciudad_id" /> -->
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<record model="ir.ui.view" id="rusia_general_form">
+ 				<field name="name">rusia.general.form</field>
+ 				<field name="model">rusia.general</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 							<group>
+ 								<field name="name" />
+ 								<field name="concepto_id" />
+								<field name="fecha" />
+								<field name="ciudad_id" />
+								<field name="rublos" />
+								<field name="euros" />
+								<field name="usd" />
+								<field name="tc_rub" />
+								<field name="tc_eur" />
+								<field name="tc_usd" />
+								<field name="tarjeta_pp" />
+ 							</group>
+ 							<!-- <group col="4">
+ 								<field name="Dia" />
+ 								<field name="tour_id" />
+							</group>
+							<group col="6">
+ 								<field name="Paxs_Pago" />
+ 								<field name="Paxs_Terceros" />
+ 								<field name="Paxs_All_Included" />
+ 								<field name="Total_Paxs" />
+ 								<field name="Usd" />
+ 								<field name="Euros" />
+ 								<field name="Paypal" />
+ 								<field name="Total_Tarjeta" />
+ 								<field name="Rub" />
+ 								<field name="Euros_Reserva" />
+ 								<field name="Usd_Reserva" />
+ 								<field name="Rub_Reserva" />
+ 							</group>
+ 							<group>
+ 								<field name="ciudad_id" />
+ 							</group>
+						 -->
+ 					</form>
+ 				</field>
+ 			</record>
+
+
+ 			<record id="action_list_menu_13" model="ir.actions.act_window">
+ 				<field name="name">General</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.general</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 			</record>
+
+
+
+
+
+
+
+
+
+
+
+</data>
+</odoo>

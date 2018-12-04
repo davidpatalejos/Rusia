@@ -1,0 +1,149 @@
+<odoo>
+
+	<data>
+
+		
+		<record model="ir.ui.view" id="rusia_beneficios_concepto_tree">
+			<field name="name">rusia.beneficios.concepto.tree</field>
+			<field name="model">rusia.beneficios.concepto</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" string="Nombre del Concepto" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="rusia_beneficios_concepto_form">
+			<field name="name">rusia.beneficios.concepto.form</field>
+			<field name="model">rusia.beneficios.concepto</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="name" string="Nombre del concepto" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+
+
+
+		<record model="ir.ui.view" id="rusia_gastos_concepto_tree">
+			<field name="name">rusia.gastos.concepto.tree</field>
+			<field name="model">rusia.gastos.concepto</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" string="Nombre del Concepto" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="rusia_gastos_concepto_form">
+			<field name="name">rusia.gastos.concepto.form</field>
+			<field name="model">rusia.gastos.concepto</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="name" string="Nombre del concepto" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- Conceptos generales -->
+
+		<record model="ir.ui.view" id="rusia_gastos_concepto_gran_tree">
+			<field name="name">rusia.gastos.concepto.gral.tree</field>
+			<field name="model">rusia.conceptos.gral</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" string="Nombre del Concepto" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="rusia_gastos_concepto_gran_form">
+			<field name="name">rusia.gastos.concepto.gral.form</field>
+			<field name="model">rusia.conceptos.gral</field>
+			<field name="arch" type="xml">
+				<form>
+					<group groups="rusia.group_check_root">
+						<field name="name" string="Nombre del Concepto" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+
+			<record id="action_conceptos_gral" model="ir.actions.act_window">
+ 				<field name="name">Conceptos Generales</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.conceptos.gral</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+				<field name="domain">[('name','!=', 'Ganancia'),('name','!=', 'Servicios')]</field>
+
+ 			</record>
+
+
+
+
+ 			<!-- ganancias generales -->
+
+
+ 			<record model="ir.ui.view" id="rusia_ganancias_totales_tree">
+ 				<field name="name">rusia.ganancias.totales.tree</field>
+ 				<field name="model">rusia.ganancias.totales</field>
+ 				<field name="arch" type="xml">
+ 					<tree>
+ 						<field name="name" />
+ 						<field name="fecha" />
+						<field name="tipo_moneda" />
+						<field name="monto" />
+						<field name="ciudad_id" />
+
+ 					</tree>
+ 				</field>
+ 			</record>
+
+ 			<record model="ir.ui.view" id="rusia_ganancias_totales_form">
+ 				<field name="name">rusia.gastos.extra.form</field>
+ 				<field name="model">rusia.ganancias.totales</field>
+ 				<field name="arch" type="xml">
+ 					<form>
+ 						<sheet>
+ 							<group groups="rusia.group_check_root">
+ 								<field name="name" domain="[('name','=','Ganancia')]" default="Ganancia" options='{"no_create": true, "deletable":true}'/>
+ 								<field name="fecha" />
+								<field name="tipo_moneda" />
+								<!-- <field name="Tipo_Pago" /> -->
+								<field name="monto" />
+								<field name="observaciones" />
+								<field name="ciudad_id" />
+							</group>
+						</sheet>
+ 					</form>
+ 				</field>
+ 			</record>
+
+ 			<record id="action_ganancias_totales" model="ir.actions.act_window">
+ 				<field name="name">Gastos Extras</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.ganancias.totales</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 			</record>
+
+
+
+	</data>
+
+</odoo>
+

@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+
+        <record id="concepto_01" model="rusia.conceptos.gral"> 
+            <field name="name">Ganancia</field>
+        </record> 
+        <record id="concepto_02" model="rusia.conceptos.gral"> 
+            <field name="name">Servicios</field>
+        </record> 
+    </data>
+</odoo>

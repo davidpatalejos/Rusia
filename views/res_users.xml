@@ -1,0 +1,127 @@
+<odoo>
+
+	<data>
+
+		<record model="ir.ui.view" id="view_res_users_form">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="priority">1</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <data>
+                <xpath expr="//sheet" position="before" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root">
+                    <header>                        
+                        <button string="Cambiar contraseña" type="action" name="%(base.change_password_wizard_action)d" help="Cambiar su contraseña." />
+                    </header>
+                </xpath>
+                <xpath expr="//sheet/group/label" position="attributes" groups="rusia.group_check_root">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//sheet/div[@class='oe_title']/field[@name='email']" position="replace" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root"/>
+                <xpath expr="//sheet/div[@class='oe_title']/label[@for='login']" position="attributes" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root">
+                    <attribute name="string">Usuario</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/div[@class='oe_title']/h2/field[@name='login']" position="attributes" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root">
+                    <attribute name="placeholder">Nombre con el que ingresara a la plataforma</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/div[@class='oe_title']/h2/field[@name='login']" position="after" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root">
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                                <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                            </button>
+                        </div>
+                </xpath>
+                
+                <xpath expr="//sheet/group/div" position="attributes" groups="rusia.group_check_root">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/field[@name='phone']" position="before" groups="rusia.group_check_Cliente,rusia.group_check_chofer,rusia.group_check_guia,rusia.group_check_root">
+                    <field name="email"/>                    
+                </xpath>
+                <xpath expr="//sheet/group" position="after">
+                    <separator colspan="4" string="Grupos" groups="rusia.group_check_root"/>
+                    <!-- <field name="group_category_id" string="categoria"/> -->
+                    <!-- <field name="groups_id" string="Grupos de usuarios" 
+                        widget="many2many_checkboxes"
+                        domain="[('category_id','=',%(rusia.module_category_rusia)d)]" 
+                        /> -->
+                        <field name="groups_id" string="Grupos de usuarios" 
+                        widget="many2many_checkboxes" groups="rusia.group_check_root"
+         
+                        />
+
+
+                        <!-- <field name="groups_id" string="Grupos de usuarios" 
+                        widget="many2many_checkboxes" /> -->
+                        <separator colspan="4" string="Historial Nomina" groups="rusia.group_check_root,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_chofer"/>
+                        <field name="gastos_users_ids" groups="rusia.group_check_root,rusia.group_check_representante,rusia.group_check_guia,rusia.group_check_chofer">
+                            <tree create="false" delete="false" editable="bottom">
+                                <field name="concepto_gasto_id" />
+                                <!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+                                <field name="Total" string="Total" />
+                                <field name="usuario_id" />
+                                <field name="evento_padre"/>
+                                <field name="fecha"/>
+                                <field name="pagado" />
+                                
+                            </tree>
+                            <form>
+                                <field name="concepto_gasto_id"  />
+                                <!-- <field name="Tipo_Pago" string="Tipo de pago" /> -->
+                                <field name="Total" string="Total" />
+                                <field name="usuario_id" />
+                                <field name="evento_padre"/>
+                                <field name="fecha"/>
+                                <field name="pagado" />
+                            </form>
+
+                        </field>
+
+
+                        <separator colspan="4" string="Historial Nomina REP" groups="rusia.group_check_root,rusia.group_check_representante"/>
+                        <field name="reps_gastos_ids" groups="rusia.group_check_root,rusia.group_check_representante">
+
+                            <tree create="false" delete="false" editable="bottom">
+                                <field name="name" />
+                                <field name="fecha" />
+                                <field name="monto" />
+                                <field name="gasto_evento_id" />
+                                <field name="pagado" />
+
+                            </tree>
+                             <form>
+                                <field name="name" />
+                                <field name="fecha" />
+                                <field name="monto" />
+                                <field name="gasto_evento_id" />
+                                <field name="pagado" />
+
+                            </form>
+                        </field>
+
+                        <separator colspan="4" string="Historial Eventos Cliente" groups="rusia.group_check_Cliente,rusia.group_check_root"/>
+                        <field name="eventos_ids" groups="rusia.group_check_Cliente,rusia.group_check_root">
+                            <tree create="false" delete="false" editable="bottom">
+
+                                    <field name="name" />
+                                    <field name="Fecha_Inicio" />
+                                    <field name="Fecha_Fin" />
+                                    <field name="servicio_id" />
+                            </tree>
+
+                        </field>
+
+
+
+
+                        
+                </xpath>
+                </data>
+            </field>
+    </record>
+
+
+	</data>
+</odoo>

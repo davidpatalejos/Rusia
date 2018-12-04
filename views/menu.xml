@@ -1,0 +1,132 @@
+<odoo>
+	<data>
+
+
+		<menuitem name="Tours Rusia" id="rusia.menu_root" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_chofer,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+		<!-- Aside menu -->
+		<!-- Submenu Eventos -->
+
+
+		<menuitem name="Reservas" id="rusia.menu_1" parent="rusia.menu_root" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_chofer,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+
+		<!-- Submenu Configuracion -->
+
+		<menuitem name="Configuración" id="rusia.menu_2" parent="rusia.menu_root" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_chofer,rusia.group_check_root,rusia.group_check_admin_traslados" />
+
+		<!-- Submenu Configuracion -->
+
+		<menuitem name="Ganancias" id="rusia.menu_3" parent="rusia.menu_root" groups="rusia.group_check_root"/>
+
+		<!-- actions links -->
+		<!-- List menu Itinerarios y costos -->
+
+		<!-- <menuitem name="Itinerario" id="rusia.menu_itinerario_list" parent="rusia.menu_1" sequence="10" action="action_list_menu_1_2_1_1"/> -->
+
+		<!-- nuevos para usuarios por calendario -->
+		s
+		<menuitem name="Calendario" id="menu_itinerario_sub" parent="menu_1" action="action_rusia_eventos" groups="rusia.group_check_root" />
+		<!-- <menuitem name="Calendario" id="menu_calendar_chofer" parent="menu_1" action="action_rusia_eventos_calendar_chofer" groups="rusia.group_check_chofer" />
+		<menuitem name="Calendario" id="menu_calendar_representante" parent="menu_1" action="action_rusia_eventos_calendar_representante" groups="rusia.group_check_representante"/>
+		<menuitem name="Calendario" id="menu_calendar_guia" parent="menu_1" action="action_rusia_eventos_calendar_guia" groups="rusia.group_check_guia"/>
+		<menuitem name="Calendario" id="menu_calendar_cliente" parent="menu_1" action="action_rusia_eventos_calendar_cliente"  groups="rusia.group_check_Cliente"/>
+		<menuitem name="Calendario" id="menu_calendar_admin_traslados" parent="menu_1" action="action_rusia_eventos_calendar_admin_traslados" groups="rusia.group_check_admin_traslados"/> -->
+
+	<!-- 	<menuitem name="Itinerarios2" id="menu_itinerario_sub2" parent="menu_1" action="action_itinerario2"/> -->
+
+
+		
+
+		<!-- List menu Ciudades -->
+
+
+		<menuitem name="Ciudades" id="rusia.menu_ciudades_list" parent="rusia.menu_2" action="action_list_menu_2" groups="rusia.group_check_root" />
+
+
+		<!-- List menu Tours -->
+
+		<!-- <menuitem name="Tours" id="rusia.menu_tours_list" parent="rusia.menu_2" action="action_list_menu_3"/> -->
+
+		<!-- List menu Guías -->
+
+		<menuitem name="Usuarios" id="rusia.menu_guias_list" parent="rusia.menu_2" action="action_list_menu_4" groups="rusia.group_check_root"/>
+
+<!-- 
+		<menuitem name="Mi perfil" id="rusia.menu_mi_perfil_rep" parent="rusia.menu_2" action="action_list_menu_21" groups="rusia.group_check_representante"/>
+		<menuitem name="Mi perfil" id="rusia.menu_mi_perfil_client" parent="rusia.menu_2" action="action_list_menu_22" groups="rusia.group_check_Cliente"/> -->
+		
+		<menuitem name="Mi perfil" id="rusia.menu_mi_perfil_chofer" parent="rusia.menu_2" action="action_list_menu_23" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_chofer,rusia.group_check_root"/>
+		
+		<!-- <menuitem name="Mi perfil" id="rusia.menu_mi_perfil_guia" parent="rusia.menu_2" action="action_list_menu_24" groups="rusia.group_check_guia"/> -->
+
+		<!-- List menu Pasajeros -->
+
+		<!-- <menuitem name="Pasajeros" id="rusia.menu_pasajeros_list" parent="rusia.menu_2" action="action_list_menu_5"/> -->
+
+		<!-- List menu Tipo de servicios -->
+
+		<menuitem name="Tipo de servicio" id="rusia.menu_tiposervicio_list" parent="rusia.menu_2" action="action_list_menu_6" groups="rusia.group_check_root,rusia.group_check_admin_traslados"/>
+
+		<!-- List menu Gastos tours -->
+
+		<menuitem name="Gastos tours" id="rusia.menu_gastostours_list" parent="rusia.menu_2" action="action_list_menu_7" groups="rusia.group_check_root"/>
+		
+		<!-- List menu Gastos Extras -->
+
+		<menuitem name="Gastos extras" id="menu_gastos_extras2" parent="rusia.menu_2" action="action_gastos_extras" groups="rusia.group_check_root"/>
+
+		<!-- List menu Beneficios extras -->
+
+		<menuitem name="Beneficios extras" id="menu_beneficios" parent="rusia.menu_2" action="action_beneficios" groups="rusia.group_check_root"/>
+
+		<menuitem name="Conceptos Generales" id="menu_conceptos_fral" parent="rusia.menu_2" action="action_conceptos_gral" groups="rusia.group_check_root"/>
+
+
+
+		
+
+		<!-- List menu Tours itinerario -->
+
+		<!-- <menuitem name="Itinerario de tours" id="rusia.menu_toursitinerario_list" parent="rusia.menu_2" action="action_list_menu_8"/>
+	-->
+	<!-- List menu Tours itinerario line -->
+
+	<!-- 	<menuitem name="Tour Itinerario Line" id="rusia.menu_toursitinerarioline_list" parent="rusia.menu_2" action="action_list_menu_9"/> -->
+
+	<!-- List menu Documentos -->
+
+	<menuitem name="Documentos" id="rusia.menu_documentos_list" parent="rusia.menu_2" action="action_list_menu_10" groups="rusia.group_check_root,rusia.group_check_admin_traslados"/>
+
+
+	<!-- List menu Eventos -->
+
+
+	<menuitem name="Reservas" id="rusia.menu_eventos_list" parent="rusia.menu_1" sequence="20" action="action_list_menu_11_2" groups="rusia.group_check_Cliente,rusia.group_check_root,rusia.group_check_admin_traslados"/>
+
+
+<!-- 	<menuitem name="Reservas" id="rusia.menu_eventos_list" parent="rusia.menu_1" sequence="20" action="action_list_menu_11_2" groups="rusia.group_check_Cliente,rusia.group_check_guia,rusia.group_check_representante,rusia.group_check_chofer,rusia.group_check_root"/> -->
+
+
+	
+
+
+	<!-- List menu Ganancias generales  -->
+
+	<menuitem name="Ganancias totales" id="rusia.menu_gastos_extras" parent="rusia.menu_3" action="action_ganancias_totales" sequence="1" groups="rusia.group_check_root"/>
+	
+	<!-- List menu General -->
+
+	<menuitem name="General" id="rusia.menu_general" parent="rusia.menu_3" action="action_list_menu_13" sequence="3" groups="rusia.group_check_root" />
+
+
+
+
+
+
+<menuitem name="Resumen de Movimientos" id="eventos_totales_generales2" parent="rusia.menu_3" action="action_eventos_generales22" sequence="2" groups="rusia.group_check_root"/>
+
+
+
+	</data>
+</odoo>

@@ -1,0 +1,158 @@
+<odoo>
+
+	<data>
+
+		<record model="ir.ui.view" id="rusia_gastos_ciudad_form">
+			<field name="name">rusia.gastos.ciudad.form</field>
+			<field name="model">rusia.gastos.ciudad</field>
+			<field name="arch" type="xml">
+				<form >
+					<sheet>
+
+						<group col="4">
+ 								<separator string="Costos de itinerario General" colspan="4"  />
+ 								<group col="4">
+ 								<separator string="Montos Positivos" colspan="2"  />
+
+ 								<field name="Total_Pago_Clientes" string="Total pago clientes"  />
+ 								<field name="Total_Euros" string="Total EUR"  />
+								<field name="Total_Rub" string="Total RUB"  />
+ 								<field name="Total_Tarjeta" string="Total Tarjeta"  />
+ 								<field name="tarjeta_usd" />
+								<field name="tarjeta_rub" />
+								<field name="tarjeta_eur" />
+								<field name="Total_Gastos" string="Total Gastos"  />
+ 							</group>
+ 							<group col="4">
+ 								<separator string="Montos Negativos" colspan="2"  />
+ 								<field name="Total_Pagado_Web" string="Total pagado en web"  />
+ 								<field name="Total_Usd" string="Total USD"  />
+ 								<field name="Total_Paypal" string="Total PayPal"  />
+ 								<field name="Total_Beneficios" string="Total Beneficios"  />
+ 								<field name="Total_Representante" string="Total representante"  />
+ 							</group>
+ 							</group>
+					</sheet>
+
+				</form>
+			</field>
+		</record>
+
+
+		<!-- Totales generales -->
+
+		<record model="ir.ui.view" id="rusia_eventos_generales_form2">
+			<field name="name">rusia.eventos.generales.form.2</field>
+			<field name="model">rusia.gastos.ciudad</field>
+			<field name="arch" type="xml">
+				<form >
+					<sheet>
+
+						<group col="4">
+							
+							<field name="concepto_id" />
+							<field name="evento_id" />
+							<field name="dia" string="Fecha" />
+							<field name="name" />
+							<field name="Total_Pago_Clientes" />
+							<field name="Total_Pagado_Web" />
+							<field name="Total_Euros" />
+							<field name="Total_Usd" />
+							<field name="Total_Rub" />
+							<field name="Total_Paypal" />
+							<field name="Total_Tarjeta" />
+							<field name="tarjeta_usd_pos" />
+							<field name="tarjeta_eur_pos" />
+							<field name="Total_Representante" />
+							<field name="Total_Gastos" />
+							<field name="Total_Beneficios" />
+							<field name="tarjeta_usd" />
+							<field name="tarjeta_rub" />
+							<field name="tarjeta_eur" />
+							<field name="gasto_rub" />
+							<field name="gasto_usd" />
+							<field name="gasto_eur" />
+							<field name="gasto_paypal" />
+
+						</group>
+					</sheet>
+
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="rusia_eventos_generales_tree2">
+			<field name="name">rusia.eventos.generales.tree.2</field>
+			<field name="model">rusia.gastos.ciudad</field>
+			<field name="arch" type="xml">
+				<tree>
+							<!-- <field name="name" />
+							<field name="Total_Pago_Clientes" string="Total pago clientes"  />
+							<field name="Total_Pagado_Web" string="Total pagado en web"  />
+							<field name="Total_Euros" string="Total EUR"  />
+							<field name="Total_Usd" string="Total USD"  />
+							<field name="Total_Rub" string="Total RUB"  />
+							<field name="Total_Paypal" string="Total PayPal"  />
+							<field name="Total_Tarjeta" string="Total Tarjeta"  />
+							<field name="Total_Representante" string="Total representante"  />
+							<field name="Total_Gastos" string="Total Gastos"  />
+							<field name="Total_Beneficios" string="Total Beneficios"  /> -->
+							<field name="concepto_id" />
+							<field name="evento_id" />
+							<field name="dia" string="Fecha" />
+							<field name="name" />
+							<field name="Total_Pago_Clientes" sum="Total" />
+							<field name="Total_Pagado_Web" sum="Total" />
+							<field name="Total_Euros" sum="Total" />
+							<field name="Total_Usd" sum="Total" />
+							<field name="Total_Rub" sum="Total" />
+							<field name="Total_Paypal" sum="Total" />
+							<field name="Total_Tarjeta" sum="Total" />
+							<field name="tarjeta_usd_pos" sum="Total" />
+							<field name="tarjeta_eur_pos" sum="Total" />
+							<field name="Total_Representante" sum="Total" />
+							<field name="Total_Gastos" sum="Total" />
+							<!-- <field name="Total_Beneficios" /> -->
+							<field name="tarjeta_usd" sum="Total" />
+							<field name="tarjeta_rub" sum="Total" />
+							<field name="tarjeta_eur" sum="Total" />
+							<field name="gasto_rub" sum="Total" />
+							<field name="gasto_usd" sum="Total" />
+							<field name="gasto_eur" sum="Total" />
+							<field name="gasto_paypal" sum="Total" />
+					</tree>
+			</field>
+		</record>
+
+			<record id="action_eventos_generales22" model="ir.actions.act_window">
+ 				<field name="name">Totales Generales</field>
+ 				<field name="type">ir.actions.act_window</field>
+ 				<field name="res_model">rusia.gastos.ciudad</field>
+ 				<field 	name="view_type">form</field>
+ 				<field name="view_mode">tree,form</field>
+ 				<field name="domain">[]</field>
+			</record>
+
+			<record model="ir.actions.act_window.view" id="action_eventos_generales_tree2221">
+ 				<field eval="1" name="sequence"/>
+ 				<field name="view_mode">tree</field>
+ 				<field name="view_id" ref="rusia_eventos_generales_tree2"/>
+ 				<field name="act_window_id" ref="action_eventos_generales22"/>
+ 			</record>
+
+ 			<record model="ir.actions.act_window.view" id="action_eventos_generales_form2221">
+ 				<field eval="2" name="sequence"/>
+ 				<field name="view_mode">form</field>
+ 				<field name="view_id" ref="rusia_eventos_generales_form2"/>
+ 				<field name="act_window_id" ref="action_eventos_generales22"/>
+ 			</record>
+
+ 			
+
+
+
+
+	</data>
+
+
+</odoo>
